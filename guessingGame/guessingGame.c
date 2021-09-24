@@ -30,11 +30,19 @@ During setting max number phase:
 During quit phase:
     The program will just printf a thank you message and the program will end there.
 
+Added saving capability. The file maxNumber.txt will be opened and scanned for whatever value is in there,
+and it will save as a user creates a new maximum. That file will be loaded and opened every time the
+program is executed.
 */
 int main() {
+    FILE *filepointer;
     int correctNumber, userSelection, userMaxNumber, checkQ; //Setting initial variables
-    int maxNumber = 10;
     char userGuess[5];
+    int maxNumber;
+
+    filepointer = fopen("maxNumber.txt", "r+"); //Here we open the file 
+    fscanf(filepointer, "%d", &maxNumber); //Grab that number from the file and put it to maxNumber.
+    fclose(filepointer);
 
     time_t t; //Initializing time for random generation
     srand((unsigned) time(&t));
@@ -88,10 +96,16 @@ int main() {
         printf("Please enter a valid number! Try again: ");
         scanf("%d", &userMaxNumber);
     }
+
+    filepointer = fopen("maxNumber.txt", "w+"); //Open the file with overwrite capability so it just flushes out the old number with a new one.
+    fprintf(filepointer, "%d", userMaxNumber);
+    fclose(filepointer);
     maxNumber = userMaxNumber;
+
     printf("Successfully changed the max number!");
     goto menu;
 
     quit:
     printf("Thank you for playing!"); //Thank you message to end it off.
+
 }
