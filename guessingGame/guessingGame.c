@@ -3,15 +3,17 @@
 #include <time.h>
 
 int main() {
-    int userSelection, correctNumber;
+    int correctNumber;
     int maxNumber = 10;
-    char userGuess;
+    int userGuess;
+    char userSelection;
+    int userMaxNumber;
 
     time_t t; //Initializing time for random generation
     srand((unsigned) time(&t));
    
     menu:
-    printf("Press 1 to play game\nPress 2 to change the max number\nPress 3 to quit\n");
+    printf("\nPress 1 to play game\nPress 2 to change the max number\nPress 3 to quit\n");
     scanf("%d", &userSelection);
 
     switch(userSelection) {
@@ -32,13 +34,10 @@ int main() {
     game: 
     correctNumber = (rand() % maxNumber) + 1; //Generate a random number from 0 - max value
     printf("Enter a number: ");
-    scanf("%c", &userGuess);
-    
-    if (userGuess == 'q')
-        goto menu;
+    scanf("%d", &userGuess);
 
-    while((int)userGuess != (int)correctNumber) {
-        if ((int)userGuess > (int)correctNumber) {
+    while(userGuess != correctNumber) {
+        if (userGuess > correctNumber) {
             printf("Your guess is too high, enter another number:");
             scanf("%d", &userGuess);
         }
@@ -51,6 +50,16 @@ int main() {
     goto menu;
 
     maxNumber:
+    printf("Enter your max number (must be non-negative and between 1-10)");
+    scanf("%d", &userMaxNumber);
+    while(userMaxNumber < 1 || userMaxNumber > 10){
+        printf("Please enter a valid number! Try again: ");
+        scanf("%d", &userMaxNumber);
+    }
+    maxNumber = userMaxNumber;
+    printf("Successfully changed the max number!");
+    goto menu;
+
     quit:
     printf("Thank you for playing!");
 }
