@@ -2,6 +2,26 @@
 #include <stdlib.h>
 #include <time.h>
 
+/* Jeremy Lesmana
+
+Code outline:
+First I'm going to initalize the variables of tax percentage, tip percentage, and the
+menu price which will eventually get filled out later after the randomization.
+
+Then I have to declare the time_t to ensure that the values are generated based on the time seed.
+After that, find the random value and modulus by 4 because it's going to spit out 0-3, since there
+are 4 items on the menu.
+
+Then I'm going to ask the user for the tax and tip percentages respectively, and the program is
+going to generate that random number which then will pick out what menu item they got.
+I'm going to declare new variables for the tax amount, tip amount, and total amount in floats.
+After so, I will multiply the tax amount and tip amount respectively depending on the meal and 
+user inputted percentages.
+
+From there, I set the total amount to the tip amount, tax amount, and menu price summed up
+and use that on a printf. Using the %.2f to keep it shorter to two decimal points just like dollars and cents.
+
+*/
 int main () {
     float taxPercentage, tipPercentage, menuPrice; //Initializing variables for tax and tip percentage
     time_t t; //Initializing time for random generation
